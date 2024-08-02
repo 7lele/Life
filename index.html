@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeu de la Vie</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Jeu de la Vie</h1>
+    <div id="container">
+        <canvas id="gameCanvas"></canvas>
+        <div id="controls">
+            <button id="startButton">Start</button>
+            <button id="stopButton">Stop</button>
+            <button id="resetButton">Reset</button>
+            <input type="number" id="stepInput" placeholder="Steps" min="1">
+            <button id="stepButton">Advance</button>
+        </div>
+        <div id="speedControl">
+            <h2>Simulation Speed</h2>
+            <input type="range" id="speedSlider" min="50" max="1000" value="500">
+            <span id="speedValue">500</span> ms/step
+        </div>
+    </div>
+    <audio id="clickSound" src="click.mp3"></audio>
+    <script src="script.js"></script>
+</body>
+</html>
