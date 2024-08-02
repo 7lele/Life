@@ -1,0 +1,68 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #20232a;
+    color: #61dafb;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+canvas {
+    border: 1px solid #61dafb;
+    background-color: #282c34;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+button, input[type="number"] {
+    margin: 5px;
+    padding: 10px 20px;
+    background-color: #61dafb;
+    color: #20232a;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover, input[type="number"]:hover {
+    background-color: #21a1f1;
+}
+
+input[type="number"] {
+    width: 80px;
+}
+
+textarea {
+    width: 300px;
+    height: 100px;
+    border-radius: 5px;
+    border: 1px solid #61dafb;
+    padding: 10px;
+    background-color: #282c34;
+    color: #61dafb;
+}
+
+#reviews {
+    margin-top: 20px;
+}
+
+#reviews ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#reviews li {
+    background-color: #282c34;
+    padding: 10px;
+    border: 1px solid #61dafb;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    transition: transform 0.3s ease;
+}
+
+#reviews li:hover {
+    transform: scale(1.05);
+}
