@@ -8,22 +8,20 @@
 </head>
 <body>
     <h1>Jeu de la Vie</h1>
-    <canvas id="gameCanvas" width="800" height="600"></canvas>
-    <div>
-        <button id="startButton">Start</button>
-        <button id="stopButton">Stop</button>
-        <button id="resetButton">Reset</button>
-        <input type="number" id="stepInput" placeholder="Steps" min="1">
-        <button id="stepButton">Advance</button>
-    </div>
-    <div>
-        <h2>Laissez un avis</h2>
-        <textarea id="reviewText" placeholder="Votre avis ici..."></textarea>
-        <button id="submitReviewButton">Soumettre</button>
-    </div>
-    <div id="reviews">
-        <h2>Avis</h2>
-        <ul id="reviewsList"></ul>
+    <div id="container">
+        <canvas id="gameCanvas"></canvas>
+        <div id="controls">
+            <button id="startButton">Start</button>
+            <button id="stopButton">Stop</button>
+            <button id="resetButton">Reset</button>
+            <input type="number" id="stepInput" placeholder="Steps" min="1">
+            <button id="stepButton">Advance</button>
+        </div>
+        <div id="speedControl">
+            <h2>Simulation Speed</h2>
+            <input type="range" id="speedSlider" min="50" max="1000" value="500">
+            <span id="speedValue">500</span> ms/step
+        </div>
     </div>
     <audio id="clickSound" src="click.mp3"></audio>
     <script src="script.js"></script>

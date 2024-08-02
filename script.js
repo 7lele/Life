@@ -1,14 +1,22 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
-const resolution = 20;
-canvas.width = 800;
-canvas.height = 600;
+let resolution = 20;
+canvas.width = window.innerWidth * 0.9;
+canvas.height = window.innerHeight * 0.9;
 const GRID_WIDTH = 200;
 const GRID_HEIGHT = 150;
 const clickSound = document.getElementById('clickSound');
+const speedSlider = document.getElementById('speedSlider');
+const speedValue = document.getElementById('speedValue');
 
 let grid = buildGrid(GRID_WIDTH, GRID_HEIGHT);
 let animationId;
+let speed = 500;
+
+speedSlider.addEventListener('input', () => {
+    speed = speedSlider.value;
+    speedValue.textContent = speed;
+});
 
 let offsetX = 0;
 let offsetY = 0;
@@ -34,12 +42,22 @@ canvas.addEventListener('mouseup', () => {
     isDragging = false;
 });
 
+canvas.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    const delta = Math.sign(e.deltaY);
+    if (delta > 0) {
+        resolution = Math.max(5, resolution - 5);
+    } else {
+        resolution = Math.min(50, resolution + 5);
+    }
+    render(grid);
+});
+
 canvas.addEventListener('click', toggleCellState);
 document.getElementById('startButton').addEventListener('click', start);
 document.getElementById('stopButton').addEventListener('click', stop);
 document.getElementById('resetButton').addEventListener('click', reset);
 document.getElementById('stepButton').addEventListener('click', advanceSteps);
-document.getElementById('submitReviewButton').addEventListener('click', submitReview);
 
 function buildGrid(cols, rows) {
     return new Array(cols).fill(null)
@@ -99,7 +117,7 @@ function nextGen(grid) {
 function update() {
     grid = nextGen(grid);
     render(grid);
-    animationId = requestAnimationFrame(update);
+    animationId = setTimeout(update, speed);
 }
 
 function start() {
@@ -109,7 +127,7 @@ function start() {
 }
 
 function stop() {
-    cancelAnimationFrame(animationId);
+    clearTimeout(animationId);
     animationId = null;
 }
 
@@ -143,38 +161,3 @@ function toggleCellState(event) {
         render(grid);
     }
 }
-
-function submitReview() {
-    const reviewText = document.getElementById('reviewText').value;
-    if (reviewText) {
-        const reviewsList = document.getElementById('reviewsList');
-        const newReview = document.createElement('li');
-        newReview.textContent = reviewText;
-        reviewsList.appendChild(newReview);
-        document.getElementById('reviewText').value = '';
-        saveReviews();
-    }
-}
-
-function saveReviews() {
-    const reviews = [];
-    document.querySelectorAll('#reviewsList li').forEach(review => {
-        reviews.push(review.textContent);
-    });
-    localStorage.setItem('reviews', JSON.stringify(reviews));
-}
-
-function loadReviews() {
-    const reviews = JSON.parse(localStorage.getItem('reviews'));
-    if (reviews) {
-        const reviewsList = document.getElementById('reviewsList');
-        reviews.forEach(reviewText => {
-            const newReview = document.createElement('li');
-            newReview.textContent = reviewText;
-            reviewsList.appendChild(newReview);
-        });
-    }
-}
-
-window.onload = loadReviews;
-render(grid);
